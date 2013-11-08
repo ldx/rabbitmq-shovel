@@ -15,15 +15,15 @@
 %%
 
 -module(rabbit_shovel_worker_sup).
--behaviour(mirrored_supervisor).
+-behaviour(supervisor2).
 
 -export([start_link/2, init/1]).
 
 -include("rabbit_shovel.hrl").
 
 start_link(ShovelName, ShovelConfig) ->
-    mirrored_supervisor:start_link({local, ShovelName}, ShovelName,
-                                   ?MODULE, [ShovelName, ShovelConfig]).
+    supervisor2:start_link({local, ?MODULE}, ?MODULE,
+                           [ShovelName, ShovelConfig]).
 
 init([ShovelName, Config]) ->
     ChildSpecs = [{ShovelName,
