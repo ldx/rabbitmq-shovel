@@ -22,7 +22,7 @@
 -include("rabbit_shovel.hrl").
 
 start_link(ShovelName, ShovelConfig) ->
-    supervisor2:start_link({local, ?MODULE}, ?MODULE,
+    supervisor2:start_link({local, ShovelName}, ?MODULE,
                            [ShovelName, ShovelConfig]).
 
 init([ShovelName, Config]) ->
